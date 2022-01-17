@@ -3,5 +3,9 @@
     "psr-4": {
       "MultiImpact\\": "classes"
     }
+  },
+  "require": {
+    "psr/log": "^3.0",
+    "symfony/mailer": "^6.0"
   }
 }

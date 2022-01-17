@@ -1,0 +1,7 @@
+#index:
+#    path: /
+#    controller: App\Controller\DefaultController::index
+
+#demo_hello:
+#    path: /demo/hello
+#    controller: App\Controller\DemoController::hello
