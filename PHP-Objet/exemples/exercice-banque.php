@@ -1,16 +1,33 @@
 <?php
 
-require_once __DIR__ . '/../classes/Account.php';
+use MultiImpact\Bank\Account;
+use MultiImpact\Bank\AccountType;
+use MultiImpact\Entity\Contact;
+
+
+require_once __DIR__ . '/../vendor/autoload.php';
+
+// FQN ou FQCN :
+// Fully Qualified Class Name
+// le nom complet de la classe avec ses namespace
+
+$jean = new Contact();
+$jean->setFirstName('Jean');
 
 $compte = new Account();
 $compte
     ->setId(1)
-    ->setType('Compte Courant');
+    ->setType(AccountType::COMPTE_COURANT)
+    ->setProprietaire($jean);
 
-$compte->crediter(3200);
-$compte->debiter(500.50);
+try {
+    $compte->crediter(-3200);
+    $compte->debiter(500.50);
+} catch (Exception $exception) {
+    echo "Erreur : " . $exception->getMessage() . "\n";
+}
 
-echo $compte->getSolde() . "\n"; // 2699.5
+echo "Solde : " . $compte->getSolde() . "\n"; // 2699.5
 
 /*
  * Exercice :

@@ -1,11 +1,18 @@
 <?php
 
+namespace MultiImpact\Entity;
+
+use MultiImpact\Bank\Account;
+
 class Contact
 {
     protected int $id;
     protected string $firstName;
     protected string $lastName;
     protected bool $active;
+
+    /** @var Account[] */
+    protected array $comptes = [];
 
     /**
      * @return int
@@ -78,6 +85,27 @@ class Contact
         $this->active = $active;
         return $this;
     }
+
+    /**
+     * @return Account[]
+     */
+    public function getComptes(): array
+    {
+        return $this->comptes;
+    }
+
+    /**
+     * @param Account $compte
+     * @return Contact
+     */
+    public function addCompte(Account $compte): Contact
+    {
+        $this->comptes[] = $compte;
+        return $this;
+    }
+
+
+
 
 
 
