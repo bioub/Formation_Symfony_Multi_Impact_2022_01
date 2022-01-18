@@ -7,9 +7,10 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+#[Route('/demo')]
 class DemoController extends AbstractController
 {
-    #[Route('/demo/hello')]
+    #[Route('/hello')]
     public function hello() {
         $res = new Response();
         $res->setStatusCode(200);
@@ -18,7 +19,16 @@ class DemoController extends AbstractController
         return $res;
     }
 
-    #[Route('/demo/bonjour')]
+    #[Route('/hello/{name}', requirements: ['name' => '[a-zA-Z]+'])]
+    public function helloName($name) {
+        $res = new Response();
+        $res->setStatusCode(200);
+        $res->setContent("<b>Hello $name</b>");
+
+        return $res;
+    }
+
+    #[Route('/bonjour')]
     public function bonjour() {
         /* $res = new Response();
         $res->setStatusCode(200);
@@ -29,5 +39,10 @@ class DemoController extends AbstractController
 
         /* return new JsonResponse(['msg' => 'Bonjour']); */
         return $this->json(['msg' => 'Bonjour']);
+    }
+
+    #[Route('/error')]
+    public function error() {
+        throw new \Exception('Montant négatif');
     }
 }
