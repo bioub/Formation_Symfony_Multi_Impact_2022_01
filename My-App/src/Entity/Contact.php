@@ -2,66 +2,54 @@
 
 namespace App\Entity;
 
+use Doctrine\ORM\Mapping as ORM;
+
+#[ORM\Entity]
 class Contact
 {
+    #[ORM\Id, ORM\GeneratedValue, ORM\Column]
     protected int $id;
+
+    #[ORM\Column(length: 40)]
     protected string $name;
+
+    #[ORM\Column(length: 80, nullable: true)]
     protected string $email;
 
-    /**
-     * @return int
-     */
-    public function getId(): int
+    public function getId(): ?int
     {
         return $this->id;
     }
 
-    /**
-     * @param int $id
-     * @return Contact
-     */
-    public function setId(int $id): Contact
+    public function setId(?int $id): self
     {
         $this->id = $id;
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getName(): string
+    public function getName(): ?string
     {
         return $this->name;
     }
 
-    /**
-     * @param string $name
-     * @return Contact
-     */
-    public function setName(string $name): Contact
+    public function setName(string $name): self
     {
         $this->name = $name;
+
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getEmail(): string
+    public function getEmail(): ?string
     {
         return $this->email;
     }
 
-    /**
-     * @param string $email
-     * @return Contact
-     */
-    public function setEmail(string $email): Contact
+    public function setEmail(?string $email): self
     {
         $this->email = $email;
+
         return $this;
     }
-
 
 
 }
