@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    Marque : {{ voiture.marque }}
+
+    {{ dump(voiture) }}
+
+    <p>
+        <a href="{{ path('app_default_index') }}">Retourner à la page d'accueil</a>
+    </p>
+
+    <p>
+        <a href="{{ path('app_demo_helloname', {name: 'Romain'}) }}">Hello Romain</a>
+    </p>
+{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('app.css') }}" />
+{% endblock %}

@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Voiture;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
@@ -44,5 +45,15 @@ class DemoController extends AbstractController
     #[Route('/error')]
     public function error() {
         throw new \Exception('Montant négatif');
+    }
+
+    #[Route('/voiture')]
+    public function voiture() {
+        $renault = new Voiture();
+        $renault->setMarque('Renault');
+
+        return $this->render('demo/voiture.html.twig', [
+            'voiture' => $renault
+        ]);
     }
 }
