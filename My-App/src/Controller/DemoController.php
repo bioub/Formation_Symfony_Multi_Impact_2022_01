@@ -49,8 +49,9 @@ class DemoController extends AbstractController
 
     #[Route('/voiture')]
     public function voiture() {
-        $renault = new Voiture();
-        $renault->setMarque('Renault');
+        $repo = $this->getDoctrine()->getRepository(Voiture::class);
+
+        $renault = $repo->findOneBy(['marque' => 'Renault']);
 
         return $this->render('demo/voiture.html.twig', [
             'voiture' => $renault

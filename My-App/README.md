@@ -37,3 +37,13 @@ pour id, name et email
   pour id, name et email
 * dans template/delete afficher un formulaire avec la phrase "Etes vous sur de vous supprimer le contact Jean Dupont ?"
   ( où Jean Dupont est la prop name du contact) et 2 boutton Oui et Non
+
+## Doctrine
+
+* ajouter les annotations/attributs dans la classe Contact
+* générer les migrations associées
+* jouer les migrations
+* modifier le fichier AppFixture pour générer des contacts
+* insérer les fixtures
+* modifier les controleurs index et show de Contact pour 
+  récupérer les données via ObjectRepository
