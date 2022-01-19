@@ -48,9 +48,10 @@ class ContactController extends AbstractController
         //$repo = $this->getDoctrine()->getRepository(Contact::class);
         //$contact = $this->repository->find($id);
         // $contact = (new Contact())->setId($id)->setName('John Doe')->setEmail('john@doe.com');
+        $contact = $this->manager->getById($id);
 
         return $this->render('contact/show.html.twig', [
-            'contact' => $this->manager->getById($id),
+            'contact' => $contact,
         ]);
     }
 

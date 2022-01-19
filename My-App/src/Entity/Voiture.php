@@ -19,6 +19,10 @@ class Voiture
     #[ORM\Column(nullable: true)]
     protected int $nbPlaces;
 
+    #[ORM\ManyToOne(targetEntity: Camion::class, inversedBy: 'voitures')]
+    #[ORM\JoinColumn(nullable: false)]
+    private $camion;
+
     public function __toString(): string
     {
         return 'Voiture de marque ' . $this->marque;
@@ -61,6 +65,18 @@ class Voiture
     public function setNbPlaces(?int $nbPlaces): self
     {
         $this->nbPlaces = $nbPlaces;
+
+        return $this;
+    }
+
+    public function getCamion(): ?Camion
+    {
+        return $this->camion;
+    }
+
+    public function setCamion(?Camion $camion): self
+    {
+        $this->camion = $camion;
 
         return $this;
     }

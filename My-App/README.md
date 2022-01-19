@@ -57,3 +57,21 @@ pour id, name et email
 * Générer un contrôleur SocieteController et le faire dépendre de SocieteManager
 * Ajouter dans SocieteManager les méthodes getAll et getById comme ContactManager
 * Créer les pages list et show en affichant le contenu de la base comme Contact
+
+## Relations Doctrine
+
+### Ex 1
+
+* créer une entité Groupe (groupe de contacts, ex: Amis, Famille, Collègues) avec 2 propriétés : name (type: string) et description (type: text)
+* dans AppFixtures créer 3 groupes : Amis, Famille, Collègues
+* créer la relation unidirectionnel côté Contact pour qu'on puisse y ajouter des groupes
+* mettre à jour la table
+* dans AppFixtures appeler le adder de groupe sur chaque contact
+* dans contact show afficher les groupes du contact
+
+### Ex 2
+
+* Dans Societe créer la relation vers la société mère (ex: Google -> Alphabet, Activision -> Microsoft)
+* dans AppFixtures appeler setMaisonMere
+* afficher la maison mere dans societe show
+* 

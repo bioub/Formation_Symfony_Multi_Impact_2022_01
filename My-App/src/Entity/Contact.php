@@ -16,6 +16,9 @@ class Contact
     #[ORM\Column(length: 80, nullable: true)]
     protected string $email;
 
+    #[ORM\ManyToOne(inversedBy: "contacts")]
+    protected Societe $societe;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -47,6 +50,18 @@ class Contact
     public function setEmail(?string $email): self
     {
         $this->email = $email;
+
+        return $this;
+    }
+
+    public function getSociete(): ?Societe
+    {
+        return $this->societe;
+    }
+
+    public function setSociete(?Societe $societe): self
+    {
+        $this->societe = $societe;
 
         return $this;
     }

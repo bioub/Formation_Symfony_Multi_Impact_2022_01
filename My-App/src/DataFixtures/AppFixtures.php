@@ -31,19 +31,23 @@ class AppFixtures extends Fixture
             $manager->persist($voiture);
         }
 
-        for ($i=0; $i<10; $i++) {
-            $contact = new Contact();
-            $contact->setName($this->faker->name());
-            $contact->setEmail($this->faker->email());
-            $manager->persist($contact);
-        }
+        $societes = [];
 
         for ($i=0; $i<10; $i++) {
             $societe = new Societe();
             $societe->setNom($this->faker->company());
             $societe->setVille($this->faker->city());
+            $societes[] = $societe;
             $manager->persist($societe);
         }
+
+        for ($i=0; $i<10; $i++) {
+        $contact = new Contact();
+        $contact->setName($this->faker->name());
+        $contact->setEmail($this->faker->email());
+        $contact->setSociete($societes[mt_rand(0, count($societes) - 1)]);
+        $manager->persist($contact);
+    }
 
         $manager->flush();
     }

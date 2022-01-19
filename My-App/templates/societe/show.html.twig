@@ -22,6 +22,17 @@
         </tbody>
     </table>
 
+    {% if societe.contacts | length > 0 %}
+        <p>Liste des contacts</p>
+        <ul>
+            {% for c in societe.contacts %}
+            <li>
+                <a href="{{ path('app_contact_show', {id: c.id}) }}">{{ c.name }}</a>
+            </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
     <a href="{{ path('societe_index') }}">back to list</a>
 
     <a href="{{ path('societe_edit', {'id': societe.id}) }}">edit</a>

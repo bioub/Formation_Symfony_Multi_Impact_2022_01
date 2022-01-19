@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\CamionRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: CamionRepository::class)]
@@ -18,6 +20,14 @@ class Camion
 
     #[ORM\Column(type: 'float', nullable: true)]
     private $poidsAVide;
+
+    #[ORM\OneToMany(mappedBy: 'camion', targetEntity: Voiture::class)]
+    private $voitures;
+
+    public function __construct()
+    {
+        $this->voitures = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -44,6 +54,36 @@ class Camion
     public function setPoidsAVide(?float $poidsAVide): self
     {
         $this->poidsAVide = $poidsAVide;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Voiture[]
+     */
+    public function getVoitures(): Collection
+    {
+        return $this->voitures;
+    }
+
+    public function addVoiture(Voiture $voiture): self
+    {
+        if (!$this->voitures->contains($voiture)) {
+            $this->voitures[] = $voiture;
+            $voiture->setCamion($this);
+        }
+
+        return $this;
+    }
+
+    public function removeVoiture(Voiture $voiture): self
+    {
+        if ($this->voitures->removeElement($voiture)) {
+            // set the owning side to null (unless already changed)
+            if ($voiture->getCamion() === $this) {
+                $voiture->setCamion(null);
+            }
+        }
 
         return $this;
     }
