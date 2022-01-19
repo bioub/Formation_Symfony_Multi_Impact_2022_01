@@ -57,8 +57,6 @@ class ContactController extends AbstractController
     #[Route('/add', methods: ['GET', 'POST'])]
     public function create(): Response
     {
-        var_dump($this->manager);
-
         return $this->render('contact/create.html.twig', [
             'controller_name' => 'ContactController',
         ]);

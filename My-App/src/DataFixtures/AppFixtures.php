@@ -3,6 +3,7 @@
 namespace App\DataFixtures;
 
 use App\Entity\Contact;
+use App\Entity\Societe;
 use App\Entity\Voiture;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
@@ -35,6 +36,13 @@ class AppFixtures extends Fixture
             $contact->setName($this->faker->name());
             $contact->setEmail($this->faker->email());
             $manager->persist($contact);
+        }
+
+        for ($i=0; $i<10; $i++) {
+            $societe = new Societe();
+            $societe->setNom($this->faker->company());
+            $societe->setVille($this->faker->city());
+            $manager->persist($societe);
         }
 
         $manager->flush();
