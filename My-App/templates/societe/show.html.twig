@@ -22,6 +22,10 @@
         </tbody>
     </table>
 
+    {% if societe.societeMere %}
+        <p>Société mère : {{ societe.societeMere.nom }}</p>
+    {% endif %}
+
     {% if societe.contacts | length > 0 %}
         <p>Liste des contacts</p>
         <ul>

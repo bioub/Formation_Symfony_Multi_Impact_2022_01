@@ -5,7 +5,7 @@
 {% block body %}
 <form method="post">
     <p>Etes vous sur de vouloir supprimer {{ contact.name }} ?</p>
-    <button>Oui</button>
-    <button>Non</button>
+    <button name="confirm" value="oui">Oui</button>
+    <button name="confirm" value="non">Non</button>
 </form>
 {% endblock %}

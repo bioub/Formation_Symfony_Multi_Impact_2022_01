@@ -19,10 +19,6 @@ class Voiture
     #[ORM\Column(nullable: true)]
     protected int $nbPlaces;
 
-    #[ORM\ManyToOne(targetEntity: Camion::class, inversedBy: 'voitures')]
-    #[ORM\JoinColumn(nullable: false)]
-    private $camion;
-
     public function __toString(): string
     {
         return 'Voiture de marque ' . $this->marque;

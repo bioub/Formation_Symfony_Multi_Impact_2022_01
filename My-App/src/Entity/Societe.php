@@ -24,9 +24,16 @@ class Societe
     #[ORM\OneToMany(targetEntity: Contact::class, mappedBy: 'societe')]
     protected Collection $contacts;
 
+    #[ORM\ManyToOne(targetEntity: self::class, inversedBy: 'filliales')]
+    private $societeMere;
+
+    #[ORM\OneToMany(mappedBy: 'societeMere', targetEntity: self::class)]
+    private $filliales;
+
     public function __construct()
     {
         $this->contacts = new ArrayCollection();
+        $this->filliales = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -82,6 +89,48 @@ class Societe
             // set the owning side to null (unless already changed)
             if ($contact->getSociete() === $this) {
                 $contact->setSociete(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getSocieteMere(): ?self
+    {
+        return $this->societeMere;
+    }
+
+    public function setSocieteMere(?self $societeMere): self
+    {
+        $this->societeMere = $societeMere;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|self[]
+     */
+    public function getFilliales(): Collection
+    {
+        return $this->filliales;
+    }
+
+    public function addFilliale(self $filliale): self
+    {
+        if (!$this->filliales->contains($filliale)) {
+            $this->filliales[] = $filliale;
+            $filliale->setSocieteMere($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFilliale(self $filliale): self
+    {
+        if ($this->filliales->removeElement($filliale)) {
+            // set the owning side to null (unless already changed)
+            if ($filliale->getSocieteMere() === $this) {
+                $filliale->setSocieteMere(null);
             }
         }
 

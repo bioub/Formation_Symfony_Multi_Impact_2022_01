@@ -15,6 +15,15 @@
     </head>
     <body>
         {{ include('_menu.html.twig') }}
+
+        {{ showFlashes('success') }}
+
+        {#
+        {% for msg in app.flashes('success') %}
+        <p>{{ msg }}</p>
+        {% endfor %}
+        #}
+
         {% block body %}{% endblock %}
     </body>
 </html>

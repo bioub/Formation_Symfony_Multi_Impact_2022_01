@@ -21,8 +21,6 @@ class Camion
     #[ORM\Column(type: 'float', nullable: true)]
     private $poidsAVide;
 
-    #[ORM\OneToMany(mappedBy: 'camion', targetEntity: Voiture::class)]
-    private $voitures;
 
     public function __construct()
     {

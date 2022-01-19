@@ -74,4 +74,3 @@ pour id, name et email
 * Dans Societe créer la relation vers la société mère (ex: Google -> Alphabet, Activision -> Microsoft)
 * dans AppFixtures appeler setMaisonMere
 * afficher la maison mere dans societe show
-* 

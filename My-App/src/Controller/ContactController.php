@@ -6,6 +6,7 @@ use App\Entity\Contact;
 use App\Manager\ContactManager;
 use App\Repository\ContactRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -64,8 +65,22 @@ class ContactController extends AbstractController
     }
 
     #[Route('/{id}/delete', methods: ['GET', 'POST'])]
-    public function delete(int $id): Response
+    public function delete(int $id, Request $request): Response
     {
+        $contact = $this->manager->getById($id);
+
+        if (!$contact) {
+            throw $this->createNotFoundException('Contact not found');
+        }
+
+        if ($request->isMethod('post')) {
+            if ($request->request->get('confirm') === 'oui') {
+                $this->manager->delete($contact);
+                $this->addFlash('success', 'Le contact ' . $contact->getName() . ' a été supprimé');
+            }
+
+            return $this->redirectToRoute('app_contact_index');
+        }
         //$repo = $this->getDoctrine()->getRepository(Contact::class);
 
         // $contact = (new Contact())->setId($id)->setName('John Doe')->setEmail('john@doe.com');

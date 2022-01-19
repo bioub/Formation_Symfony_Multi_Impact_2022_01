@@ -20,4 +20,10 @@
         </p>
     {% endif %}
 
+    {% if contact.groupes | length > 0 %}
+        <p>
+            Groupes : {{ contact.groupes | join(', ') }}
+        </p>
+    {% endif %}
+
 {% endblock %}
