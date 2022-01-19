@@ -26,3 +26,22 @@ services:
     #App\Controller\ContactController:
     #    class: App\Controller\ContactController
     #    arguments: ['@App\Repository\ContactRepository']
+
+#            Connection
+#    /                    \
+#ContactRepository      EntityManager
+#    \                /
+#    ContactManager
+#            |
+#    ContactController
+
+#    contactManager:
+#        class: App\Manager\ContactManager
+#        arguments: ['@App\Repository\ContactRepository']
+#
+#    App\Controller\ContactController:
+#        class: App\Controller\ContactController
+#        arguments: ['@contactManager']
+    Faker\Generator:
+        factory: ['Faker\Factory', 'create']
+        arguments: ['fr_FR']

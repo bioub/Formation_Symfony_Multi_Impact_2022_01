@@ -6,27 +6,34 @@ use App\Entity\Contact;
 use App\Entity\Voiture;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
+use Faker\Generator;
 
 class AppFixtures extends Fixture
 {
+    protected Generator $faker;
+
+    public function __construct(Generator $faker)
+    {
+        $this->faker = $faker;
+    }
+
     public function load(ObjectManager $manager): void
     {
-        $faker = \Faker\Factory::create();
 
         $marques = ['Renault', 'Peugeot', 'Citroen', 'Alpine', 'Bugatti', 'PGO'];
 
         for ($i=0; $i<10; $i++) {
             $voiture = new Voiture();
-            $voiture->setMarque($faker->randomElement($marques));
-            $voiture->setNbPlaces($faker->randomElement([3, 4, 5, 7]));
-            $voiture->setPuissanceFiscale($faker->numberBetween(3, 45));
+            $voiture->setMarque($this->faker->randomElement($marques));
+            $voiture->setNbPlaces($this->faker->randomElement([3, 4, 5, 7]));
+            $voiture->setPuissanceFiscale($this->faker->numberBetween(3, 45));
             $manager->persist($voiture);
         }
 
         for ($i=0; $i<10; $i++) {
             $contact = new Contact();
-            $contact->setName($faker->name());
-            $contact->setEmail($faker->email());
+            $contact->setName($this->faker->name());
+            $contact->setEmail($this->faker->email());
             $manager->persist($contact);
         }
 

@@ -3,9 +3,8 @@
 namespace App\Controller;
 
 use App\Entity\Contact;
-use App\Entity\Voiture;
+use App\Manager\ContactManager;
 use App\Repository\ContactRepository;
-use Doctrine\Persistence\ObjectRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -13,25 +12,33 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/contacts', requirements: ['id' => '[1-9]\d*'])]
 class ContactController extends AbstractController
 {
-    protected ContactRepository $repository;
+//    protected ContactRepository $repository;
+//
+//    public function __construct(ContactRepository $repository)
+//    {
+//        $this->repository = $repository;
+//    }
 
-    public function __construct(ContactRepository $repository)
+    protected ContactManager $manager;
+
+    public function __construct(ContactManager $manager)
     {
-        $this->repository = $repository;
+        $this->manager = $manager;
     }
 
     #[Route(methods: ['GET'])]
     public function index(): Response
     {
+        // $this->container->get('App\Repository\ContactRepository')
         /** @var Contact[] $contacts */
-        $contacts = $this->repository->findBy([], limit: 100);
+        //$contacts = $this->repository->findBy([], limit: 100);
 //        $contacts = [
 //            (new Contact())->setId(1)->setName('John Doe')->setEmail('john@doe.com'),
 //            (new Contact())->setId(2)->setName('Eric Martin')->setEmail('eric.martin@gmail.com'),
 //        ];
 
         return $this->render('contact/index.html.twig', [
-            'contacts' => $contacts,
+            'contacts' => $this->manager->getAll(),
         ]);
     }
 
@@ -39,17 +46,19 @@ class ContactController extends AbstractController
     public function show(int $id): Response
     {
         //$repo = $this->getDoctrine()->getRepository(Contact::class);
-        $contact = $this->repository->find($id);
+        //$contact = $this->repository->find($id);
         // $contact = (new Contact())->setId($id)->setName('John Doe')->setEmail('john@doe.com');
 
         return $this->render('contact/show.html.twig', [
-            'contact' => $contact,
+            'contact' => $this->manager->getById($id),
         ]);
     }
 
     #[Route('/add', methods: ['GET', 'POST'])]
     public function create(): Response
     {
+        var_dump($this->manager);
+
         return $this->render('contact/create.html.twig', [
             'controller_name' => 'ContactController',
         ]);
@@ -59,7 +68,7 @@ class ContactController extends AbstractController
     public function delete(int $id): Response
     {
         //$repo = $this->getDoctrine()->getRepository(Contact::class);
-        $contact = $this->repository->find($id);
+
         // $contact = (new Contact())->setId($id)->setName('John Doe')->setEmail('john@doe.com');
 
         return $this->render('contact/delete.html.twig', [

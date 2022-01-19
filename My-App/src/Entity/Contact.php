@@ -10,7 +10,7 @@ class Contact
     #[ORM\Id, ORM\GeneratedValue, ORM\Column]
     protected int $id;
 
-    #[ORM\Column(length: 40)]
+    #[ORM\Column(length: 50)]
     protected string $name;
 
     #[ORM\Column(length: 80, nullable: true)]
