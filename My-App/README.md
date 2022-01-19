@@ -47,3 +47,13 @@ pour id, name et email
 * insérer les fixtures
 * modifier les controleurs index et show de Contact pour 
   récupérer les données via ObjectRepository
+
+## Créer une nouvelle entité et ses pages
+
+* Générer une nouvelle entité Societe avec id, nom et ville avec make:entity
+* Générer les getters/setters si besoin et la table
+* Modifier les fixtures pour insérer des sociétés à partir de Faker (voir la doc)
+* Créer SocieteManager et le faire dépendre de SocieteRepository
+* Générer un contrôleur SocieteController et le faire dépendre de SocieteManager
+* Ajouter dans SocieteManager les méthodes getAll et getById comme ContactManager
+* Créer les pages list et show en affichant le contenu de la base comme Contact
