@@ -19,6 +19,17 @@ class SocieteRepository extends ServiceEntityRepository
         parent::__construct($registry, Societe::class);
     }
 
+    /** @return Societe[] */
+    public function findAllWithAtLeast1Contact()
+    {
+        return $this->createQueryBuilder('s')
+            ->innerJoin('s.contacts', 'c')
+            ->setMaxResults(10)
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+
     // /**
     //  * @return Societe[] Returns an array of Societe objects
     //  */
