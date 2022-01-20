@@ -56,9 +56,19 @@ class ContactController extends AbstractController
     }
 
     #[Route('/add', methods: ['GET', 'POST'])]
-    public function create(): Response
+    public function create(Request $request): Response
     {
         $form = $this->createForm(ContactType::class);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $contact = $form->getData();
+
+            $this->manager->save($contact);
+            $this->addFlash('success', 'Contact créé');
+
+            return $this->redirectToRoute('app_contact_index');
+        }
 
         return $this->renderForm('contact/create.html.twig', [
             'contactForm' => $form,

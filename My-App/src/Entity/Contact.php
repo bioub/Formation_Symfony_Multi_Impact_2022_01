@@ -5,6 +5,7 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity]
 class Contact
@@ -13,9 +14,12 @@ class Contact
     protected int $id;
 
     #[ORM\Column(length: 50)]
+    #[Assert\NotBlank(message: 'Le nom est obligatoire')]
+    #[Assert\Length(max: 50, maxMessage: 'Le nom ne doit pas dépasser {{ limit }} caractères')]
     protected string $name;
 
     #[ORM\Column(length: 80, nullable: true)]
+    #[Assert\Email]
     protected string $email;
 
     #[ORM\ManyToOne(inversedBy: "contacts")]

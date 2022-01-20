@@ -33,4 +33,10 @@ class ContactManager
         $this->manager->remove($contact);
         $this->manager->flush();
     }
+
+    public function save(Contact $contact)
+    {
+        $this->manager->persist($contact);
+        $this->manager->flush();
+    }
 }
