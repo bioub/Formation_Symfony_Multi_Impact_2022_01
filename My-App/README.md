@@ -82,3 +82,9 @@ pour id, name et email
 * Créer une méthode findAllNotEmpty() dans SocieteRepository qui retourne les societes avec au moins 1 contacts
 * Afficher la liste de lien dans la fonction twig vers les sociétés avec au moins 1 contact
 * Vous aurez besoin d'un service pour générer les liens à partir du nom de la route, à vous de le trouver dans le container
+
+## Form + Test
+
+* Créer le formulaire d'update de contact en reprenant le code existant (ContactType et ContactManager)
+  (voir SocieteController si besoin)
+* Sur le modèle du test avec le Double de ContactManager, tester la route GET /contacts/123
