@@ -74,3 +74,11 @@ pour id, name et email
 * Dans Societe créer la relation vers la société mère (ex: Google -> Alphabet, Activision -> Microsoft)
 * dans AppFixtures appeler setMaisonMere
 * afficher la maison mere dans societe show
+
+## Twig Extension, Repository, Injection de Dépendance
+
+* Dans le fichier templates/_menu.html.twig appeler la fonction Twig showLinksSocieteNotEmpty après les 3 premiers liens
+* Générer une extension Twig avec la commande make:twig-extension, cette extension doit créer la fonction showLinksSocieteNotEmpty
+* Créer une méthode findAllNotEmpty() dans SocieteRepository qui retourne les societes avec au moins 1 contacts
+* Afficher la liste de lien dans la fonction twig vers les sociétés avec au moins 1 contact
+* Vous aurez besoin d'un service pour générer les liens à partir du nom de la route, à vous de le trouver dans le container

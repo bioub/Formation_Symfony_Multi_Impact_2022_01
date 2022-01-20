@@ -4,6 +4,8 @@ namespace App\Repository;
 
 use App\Entity\Contact;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query;
+use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -17,6 +19,26 @@ class ContactRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Contact::class);
+    }
+
+//    public function findWithSociete(int|string $id)
+//    {
+//        return $this->createQueryBuilder('c')
+//            ->select('c, s, g')
+//            ->leftJoin('c.societe', 's')
+//            ->leftJoin('c.groupes', 'g')
+//            ->where('c.id = :id')
+//            ->setParameter('id', $id)
+//            ->getQuery()
+//            ->getSingleResult(Query::HYDRATE_OBJECT);
+//    }
+
+    public function findWithSociete(int|string $id)
+    {
+        $dql = 'SELECT c, s, g FROM App\Entity\Contact c LEFT JOIN c.societe s LEFT JOIN c.groupes g WHERE c.id = :id';
+
+        return $this->_em->createQuery($dql)->setParameter('id', $id)
+            ->getSingleResult();
     }
 
     // /**

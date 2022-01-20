@@ -20,16 +20,14 @@ class ContactController extends AbstractController
 //        $this->repository = $repository;
 //    }
 
-    protected ContactManager $manager;
-
-    public function __construct(ContactManager $manager)
+    public function __construct(protected ContactManager $manager)
     {
-        $this->manager = $manager;
     }
 
     #[Route(methods: ['GET'])]
     public function index(): Response
     {
+
         // $this->container->get('App\Repository\ContactRepository')
         /** @var Contact[] $contacts */
         //$contacts = $this->repository->findBy([], limit: 100);

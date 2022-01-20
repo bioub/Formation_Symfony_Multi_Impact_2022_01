@@ -24,7 +24,8 @@ class ContactManager
 
     public function getById(int|string $id)
     {
-        return $this->repository->find($id);
+        // return $this->repository->find($id);
+        return $this->repository->findWithSociete($id);
     }
 
     public function delete(Contact $contact)
