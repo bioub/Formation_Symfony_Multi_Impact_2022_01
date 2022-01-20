@@ -3,6 +3,7 @@
 namespace App\Tests;
 
 use App\Entity\Contact;
+use App\Entity\Societe;
 use App\Manager\ContactManager;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
@@ -36,5 +37,26 @@ class ContactTest extends WebTestCase
         $this->assertResponseIsSuccessful();
         $this->assertCount(4, $crawler->filter('table tr'));
         $managerDouble->getAll()->shouldHaveBeenCalledOnce();
+    }
+
+    public function testShowWithDouble(): void
+    {
+        $client = static::createClient();
+
+        $managerDouble = $this->prophesize(ContactManager::class);
+
+        $managerDouble->getById(123)->willReturn(
+            (new Contact())->setId(123)->setName('ABC')->setEmail('a@a.com')->setSociete(
+                (new Societe())->setNom('DEF')
+            )
+        );
+
+        $this->getContainer()->set(ContactManager::class, $managerDouble->reveal());
+
+        $crawler = $client->request('GET', '/contacts/123');
+
+        $this->assertResponseIsSuccessful();
+        $this->assertSelectorTextContains('p:first-of-type', 'ABC');
+        $managerDouble->getById(123)->shouldHaveBeenCalledOnce();
     }
 }

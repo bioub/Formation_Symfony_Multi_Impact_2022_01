@@ -102,10 +102,20 @@ class ContactController extends AbstractController
     }
 
     #[Route('/{id}/update', methods: ['GET', 'POST'])]
-    public function update(int $id): Response
+    public function update(int $id, Request $request): Response
     {
-        return $this->render('contact/update.html.twig', [
-            'controller_name' => 'ContactController',
+        $contact = $this->manager->getById($id);
+        $contactForm = $this->createForm(ContactType::class, $contact);
+        $contactForm->handleRequest($request);
+
+        if ($contactForm->isSubmitted() && $contactForm->isValid()) {
+            $this->manager->save($contact);
+            $this->addFlash('success', 'Le contact ' . $contact->getName() . ' a été modifié');
+            return $this->redirectToRoute('app_contact_index', [], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->renderForm('contact/update.html.twig', [
+            'contactForm' => $contactForm,
         ]);
     }
 }
